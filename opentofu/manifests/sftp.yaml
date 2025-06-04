@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sftp
+  namespace: foundry-vtt
+spec:
+  ports:
+    - port: 22
+      targetPort: 22
+      protocol: TCP
+  selector:
+    app: sftp
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sftp-config
+  namespace: foundry-vtt
+data:
+  sftp-users.conf: |
+    foundry:${sftp.password}:421:421:data
+  sshd-config: |
+    Protocol 2
+    HostKey /etc/ssh/ssh_host_ed25519_key
+    HostKey /etc/ssh/ssh_host_rsa_key
+    # Faster connection
+    # See: https://github.com/atmoz/sftp/issues/11
+    UseDNS no
+    # Limited access
+    PermitRootLogin no
+    X11Forwarding no
+    AllowTcpForwarding no
+    # Force sftp and chroot jail
+    Subsystem sftp internal-sftp
+    ForceCommand internal-sftp
+    ChrootDirectory %h
+    MaxAuthTries 20
+    LogLevel VERBOSE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftp
+  namespace: foundry-vtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftp
+  template:
+    metadata:
+      labels:
+        app: sftp
+    spec:
+      containers:
+        - name: sftp
+          image: atmoz/sftp:debian
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22
+          env:
+            - name: PWD
+              valueFrom:
+                secretKeyRef:
+                  name: foundry-pwd
+                  key: pwd
+          args: ["foundry:$(PWD):421:421:data"]
+          volumeMounts:
+            - name: data
+              mountPath: /home/foundry/data
+            - name: foundry-pub-key
+              mountPath: /home/foundry/.ssh/keys/
+            - name: sshd-config
+              mountPath: /etc/ssh/sshd_config.d/sshd_config
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: foundryvtt-storage
+        - name: sftp-config
+        - name: foundry-pub-key
+          secret:
+            secretName: sftp-pub
+            items:
+              - key: ssh-public-key
+                path: foundry.pub
+        - name: sshd-config
+          configMap:
+            name: sftp-config
+            items:
+              - key: sshd-config
+                path: sshd_config

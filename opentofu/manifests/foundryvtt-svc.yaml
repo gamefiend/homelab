@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: foundryvtt
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: foundry-vtt
+    helm.sh/chart: foundry-vtt-0.1.4
+  name: foundryvtt-foundry-vtt
+  namespace: foundry-vtt
+  resourceVersion: "8794098"
+  uid: 8cb0a768-7271-4d02-986c-d3a0f7e54361
+spec:
+  name: foundryvtt-foundry-vtt
+  type: ClusterIP
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80 
+    protocol: TCP
+    targetPort: 30000
+  selector:
+    app.kubernetes.io/instance: foundryvtt
+    app.kubernetes.io/name: foundry-vtt
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

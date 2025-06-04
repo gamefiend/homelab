@@ -1,0 +1,10 @@
+
+**/*.auto.tfvars
+**/*.auto.tfvars.json
+**/*.tfvars
+**/*.tfvars.json
+**/.terraform/**
+**/*.terraform.lock.hcl
+**/*terraform.tfstate*
+**/plans/**
+
