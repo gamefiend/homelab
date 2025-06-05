@@ -18,7 +18,7 @@ resource "helm_release" "nginx_ingress" {
 
 # Foundry VTT
 resource "helm_release" "foundry-vtt" {
-  name             = "foundryvtt"
+  name             = "app"
   chart            = "./charts/incubator/foundry-vtt"
   namespace        = "foundry-vtt"
   create_namespace = true
@@ -86,10 +86,42 @@ resource "helm_release" "foundry-vtt" {
 
 # Postgres
 resource "helm_release" "postgres" {
-  name             = "postgres"
-  chart            = "https://charts.bitnami.com/postgresql"
+  name             = "postgresql"
+  repository = "oci://registry-1.docker.io/bitnamicharts/"
+  chart = "postgresql"
   namespace        = "postgres"
   create_namespace = true
+
+
+  set {
+    name = "auth.password"
+    value = var.postgres_password
+  }
+
+  set {
+    name = "auth.enablePostgresUser"
+    value = true
+  }
+
+    set {
+        name = "audit.log.enabled"
+        value = "true"
+    }
+
+    set {
+        name = "audit.log.path"
+        value = "/var/log/postgresql/audit.log"
+    }
+
+  set {
+    name = "persistence.enabled"
+    value = "true"
+  }
+
+  set {
+    name = "persistence.existingClaim"
+    value = "postgres-storage"
+  }
 }
 
 ## Locals and Variables
@@ -103,4 +135,10 @@ variable "foundryvtt_admin_password" {
   description = "The password for the foundryvtt admin service"
 }
 
+
+variable "postgres_password" {
+    type = string
+    description = "The postgres password"
+    sensitive = true
+}
 
