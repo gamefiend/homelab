@@ -3,7 +3,7 @@ resource "kubectl_manifest" "homepage" {
 }
 
 resource "kubectl_manifest" "storage" {
-  yaml_body = file("${path.module}/manifests/storage.yaml")
+  yaml_body = file("${path.module}/manifests/foundryvtt-storage.yaml")
 }
 
 resource "kubectl_manifest" "sftp" {
@@ -21,19 +21,14 @@ resource "kubectl_manifest" "foundryvtt-ingress" {
   depends_on = [helm_release.nginx_ingress]
 }
 
-resource "kubectl_manifest" "foundryvtt-foundry-vtt" {
+resource "kubectl_manifest" "foundryvtt-foundry-svc" {
   yaml_body  = file("${path.module}/manifests/foundryvtt-svc.yaml")
   depends_on = [helm_release.foundry-vtt]
 }
 
-resource "kubernetes_secret" "foundryvtt" {
-  metadata {
-    name      = "foundryvtt-foundry-vtt"
-    namespace = "foundry-vtt"
-  }
-
-  data = yamldecode(local.foundryvtt_secrets).data
-  type = "Opaque"
+resource "kubectl_manifest" "postgres-storage" {
+  yaml_body = file("${path.module}/manifests/postgres-storage.yaml")
+  depends_on = [kubernetes_namespace.postgres]
 }
 
 ## Locals and Variables

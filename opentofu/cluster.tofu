@@ -41,40 +41,22 @@ resource "dnsimple_zone_record" "golarion-record" {
   ttl       = 60
   value     = data.external.nginx-load-balancer-ip.result["external-ip"]
 }
+resource "kubernetes_namespace" "postgres" {
+  metadata {
+    name = "postgres"
+  }
+}
 
 data "external" "nginx-load-balancer-ip" {
   program    = ["bash", "${path.module}/scripts/get_loadbalancer_ip.sh"]
   depends_on = [helm_release.nginx_ingress]
 }
 
-resource "kubernetes_secret" "foundryvtt-basic-auth" {
-  metadata {
-    name      = "basic-auth"
-    namespace = "foundry-vtt"
-  }
-  data = {
-    username = var.basic_auth_username
-    password = var.basic_auth_passwd
-  }
 
-  type       = "Opaque"
-  depends_on = [helm_release.nginx_ingress]
-}
 
 ## Locals and Variables
 variable "thoughtcrime_domain_id" {
   type        = string
   description = "The ID of the DNSimple zone for thoughtcrimegames.net"
 }
-
-variable "basic_auth_username" {
-  type        = string
-  description = "The username for foundryvtt basic auth"
-}
-
-variable "basic_auth_passwd" {
-  type        = string
-  description = "The password for foundryvtt basic auth"
-}
-
 

@@ -21,6 +21,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: foundryvtt-foundry-vtt
+            name: app-foundry-vtt
             port:
               number: 80
