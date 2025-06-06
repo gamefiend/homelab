@@ -7,4 +7,4 @@
 **/*.terraform.lock.hcl
 **/*terraform.tfstate*
 **/plans/**
-
+**/*.log

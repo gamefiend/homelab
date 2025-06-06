@@ -87,39 +87,39 @@ resource "helm_release" "foundry-vtt" {
 # Postgres
 resource "helm_release" "postgres" {
   name             = "postgresql"
-  repository = "oci://registry-1.docker.io/bitnamicharts/"
-  chart = "postgresql"
+  repository       = "oci://registry-1.docker.io/bitnamicharts/"
+  chart            = "postgresql"
   namespace        = "postgres"
   create_namespace = true
 
 
   set {
-    name = "auth.password"
+    name  = "auth.password"
     value = var.postgres_password
   }
 
   set {
-    name = "auth.enablePostgresUser"
+    name  = "auth.enablePostgresUser"
     value = true
   }
 
-    set {
-        name = "audit.log.enabled"
-        value = "true"
-    }
-
-    set {
-        name = "audit.log.path"
-        value = "/var/log/postgresql/audit.log"
-    }
-
   set {
-    name = "persistence.enabled"
+    name  = "audit.log.enabled"
     value = "true"
   }
 
   set {
-    name = "persistence.existingClaim"
+    name  = "audit.log.path"
+    value = "/var/log/postgresql/audit.log"
+  }
+
+  set {
+    name  = "persistence.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "persistence.existingClaim"
     value = "postgres-storage"
   }
 }
@@ -137,8 +137,8 @@ variable "foundryvtt_admin_password" {
 
 
 variable "postgres_password" {
-    type = string
-    description = "The postgres password"
-    sensitive = true
+  type        = string
+  description = "The postgres password"
+  sensitive   = true
 }
 
