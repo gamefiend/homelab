@@ -3,5 +3,17 @@ repos:
     rev: v2.2.1
     hooks:
       - id: tofu_fmt
+        name: tofu fmt
+        description: Checking fmt of tofu files
+        entry: tofu fmt
+        files: \.(tf|tofu)$
       - id: tofu_validate
+        name: tofu validate
+        description: Checking validate of tofu files
+        entry: tofu validate
+        files: \.(tf|tofu)$
       - id: tofu_checkov
+        name: tofu checkov
+        description: Checking checkov of tofu files
+        entry: tofu checkov
+        files: \.(tf|tofu)$
