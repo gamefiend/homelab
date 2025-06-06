@@ -1,0 +1,11 @@
+repos:
+  - repo: https://github.com/tofuutils/pre-commit-opentofu
+    rev: v2.2.1
+    hooks:
+      - id: tofu_fmt
+        name: tofu fmt
+        description: Checking fmt of tofu files
+        entry: tofu fmt
+        language: system
+        files: \.(tf|tofu)$
+ 
