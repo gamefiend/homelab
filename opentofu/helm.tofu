@@ -67,6 +67,7 @@ resource "helm_release" "foundry-vtt" {
     name  = "persistence.enabled"
     value = "true"
   }
+  ## random comment
 
   set {
     name  = "persistence.existingClaim"
