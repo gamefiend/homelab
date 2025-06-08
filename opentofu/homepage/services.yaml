@@ -2,3 +2,5 @@
     - FoundryVTT:
         href: https://golarion.thoughtcrimegames.net
         description: Pathfinder and other games 
+        namespace: foundry-vtt
+        app: foundry-vtt
