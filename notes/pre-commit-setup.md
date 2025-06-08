@@ -55,9 +55,11 @@ tofu validate
 
 ## Configuration
 
-The pre-commit configuration is stored in `.pre-commit-config.yaml` at the root of the repository. The current configuration includes:
+The pre-commit configuration is stored in `.pre-commit-config.yaml` at the root of the repository. We use the official OpenTofu pre-commit hooks from [tofuutils/pre-commit-opentofu](https://github.com/tofuutils/pre-commit-opentofu).
 
-- `terraform_fmt`: Formats OpenTofu files
-- `terraform_validate`: Validates OpenTofu configurations
+- `tofu_fmt`: Formats OpenTofu files
 
-Both hooks are configured to run on files with `.tf` or `.tofu` extensions. 
+The hooks are configured to:
+- Run on files with `.tf` or `.tofu` extensions
+- Use the system's PATH to find the `tofu` executable
+- Format and validate OpenTofu configurations 
