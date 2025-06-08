@@ -6,22 +6,6 @@ It also contains my notes and documentation for my projects and the services I r
 
 I use OpenTofu instead of Terraform because it's a drop-in replacement - same syntax, better license 😉
 
-## Development Setup
-
-See the [notes directory](notes/) for detailed setup instructions, including:
-- Pre-commit hooks configuration
-- Development environment setup
-- Other development-related documentation
-
-## Repository Structure
-
-- `opentofu/`: Contains all OpenTofu configuration files
-  - `manifests/`: Kubernetes manifests
-  - `homepage/`: Homepage configuration files
-  - `providers.tofu`: Provider configurations
-  - `manifests.tofu`: Resource definitions
-- `notes/`: Documentation and setup instructions
-
 ## Infrastructure Overview - as of 2025-06-04
 
 - **Kubernetes Cluster**: DOKS running version 1.32.2-do.0

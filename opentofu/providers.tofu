@@ -80,27 +80,3 @@ provider "dnsimple" {
   token   = var.dnsimple_token
 }
 
-## Locals and Variables
-variable "do_token" {
-  type        = string
-  description = "DigitalOcean API token"
-  sensitive   = true
-}
-
-variable "dnsimple_token" {
-  type        = string
-  description = "DNSimple API token"
-  sensitive   = true
-}
-
-variable "dnsimple_account" {
-  type        = string
-  description = "DNSimple account ID"
-}
-
-variable "twingate_api_token" {
-  type        = string
-  description = "Twingate API token"
-  sensitive   = true
-}
-
