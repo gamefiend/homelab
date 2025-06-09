@@ -121,4 +121,13 @@ resource "helm_release" "postgres" {
     name  = "persistence.existingClaim"
     value = "postgres-storage"
   }
-} 
+}
+
+# Kube Dashboard
+resource "helm_release" "kube_dashboard" {
+  name             = "kube-dashboard"
+  repository       = "https://kubernetes.github.io/dashboard/"
+  chart            = "kubernetes-dashboard"
+  namespace        = "kubernetes-dashboard"
+  create_namespace = true
+}
