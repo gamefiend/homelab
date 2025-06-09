@@ -94,4 +94,4 @@ resource "kubernetes_secret" "thoughtcrimegames-net-ca" {
     "tls.crt" = "${data.dnsimple_certificate.thoughtcrimegames-net.server_certificate}"
     "tls.key" = "${data.dnsimple_certificate.thoughtcrimegames-net.private_key}"
   }
-} 
+}
