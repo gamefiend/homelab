@@ -18,3 +18,4 @@ output "nginx-load-balancer-ip" {
   value       = data.external.nginx-load-balancer-ip.result["external-ip"]
   description = "The IP address of the NGINX load balancer"
 }
+

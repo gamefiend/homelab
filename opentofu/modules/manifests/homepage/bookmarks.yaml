@@ -1,8 +1,43 @@
 - Developer:
-    - Github:
-        - abbr: GH
-          href: https://github.com/gamefiend
-
-    - Terraform Registry:
-        - abbr: TF
-          href: https://registry.terraform.io 
+      - Github:
+          - abbr: GH
+            href: https://github.com/gamefiend
+      - Terraform Registry:
+          - abbr: TF
+            href: https://registry.terraform.io 
+      - Leetcode:
+          - abbr: LC
+            href: https://leetcode.com
+      - Hackerrank:
+          - abbr: HR
+            href: https://hackerrank.com
+      - Hackernews:
+          - abbr: HN
+            href: https://news.ycombinator.com
+    - Productivity:
+        - Flow Club:
+            - abbr: FC
+              href: https://in.flow.club/upcoming
+        - Trello:
+            - abbr: TR
+              href: https://trello.com/u/quinnmurphy/boards
+        - Sunsama:
+            - abbr: SM
+              href: https://app.sunsama.com/
+        - Calendar:
+            - abbr: CAL
+              href: https://calendar.google.com/calendar/u/0/r
+    - Storage:
+        - Google Drive:
+            - abbr: GD
+              href: https://drive.google.com/drive/my-drive
+        - Dropbox:
+            - abbr: DB
+              href: https://www.dropbox.com/home
+    - Social & Community:
+        - Bluesky:
+            - abbr: BSKY
+              href: https://bsky.app/
+        - Kubecraft:
+            - abbr: KC
+              href: https://www.skool.com/kubecraft
