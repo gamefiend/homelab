@@ -131,3 +131,30 @@ resource "helm_release" "kube_dashboard" {
   namespace        = "kubernetes-dashboard"
   create_namespace = true
 }
+
+# LinkDing
+#    nginx.ingress.kubernetes.io/auth-tls-secret: "linkding/thoughtcrimegames-ca-secret"
+#    nginx.ingress.kubernetes.io/auth-tls-verify-client: "off"
+resource "helm_release" "linkding" {
+  name             = "linkding"
+  repository       = "https://pascaliske.github.io/linkding-helm-chart"
+  chart            = "linkding"
+  namespace        = "linkding"
+  create_namespace = true
+
+  set {
+    name  = "ingress.enabled"
+    value = true
+  }
+
+  set {
+    name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-secret"
+    value = "linkding/thoughtcrimegames-ca-secret"
+  }
+
+  set {
+    name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-verify-client"
+    value = "off"
+  }
+
+}
