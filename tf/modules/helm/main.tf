@@ -6,83 +6,17 @@ resource "helm_release" "nginx_ingress" {
   namespace        = "ingress-nginx"
   create_namespace = true
 
-  set {
-    name  = "controller.publishService.enabled"
-    value = "true"
-  }
-  set {
-    name  = "controller.service.annotations.service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol"
-    value = "true"
-  }
+  set = [
+    {
+      name  = "controller.publishService.enabled"
+      value = "true"
+      }, {
+      name  = "controller.service.annotations.service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol"
+      value = "true"
+    }
+  ]
 }
 
-# Foundry VTT
-resource "helm_release" "foundry-vtt" {
-  name             = "app"
-  chart            = "${path.module}/charts/incubator/foundry-vtt"
-  namespace        = "foundry-vtt"
-  create_namespace = true
-
-  set {
-    name  = "image.tag"
-    value = "12.331"
-  }
-
-  set {
-    name  = "foundryvtt.hostname"
-    value = var.foundryvtt.domain
-  }
-
-  set {
-    name  = "foundryvtt.username"
-    value = var.foundryvtt.username
-  }
-
-  set {
-    name  = "foundryvtt.password"
-    value = var.foundryvtt.password
-  }
-
-  set {
-    name  = "foundryvtt.adminPassword"
-    value = var.foundryvtt.admin_password
-  }
-
-  set {
-    name  = "foundryvtt.licenseKey"
-    value = var.foundryvtt.license_key
-  }
-
-  set {
-    name  = "foundryvtt.version"
-    value = "12.331"
-  }
-
-  set {
-    name  = "persistence.dataDir.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "persistence.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "persistence.existingClaim"
-    value = "foundryvtt-storage"
-  }
-
-  set {
-    name  = "container.verbose"
-    value = "true"
-  }
-
-  set {
-    name  = "container.preserveConfig"
-    value = "true"
-  }
-}
 
 # Postgres
 resource "helm_release" "postgres" {
@@ -92,35 +26,27 @@ resource "helm_release" "postgres" {
   namespace        = "postgres"
   create_namespace = true
 
-  set {
-    name  = "auth.password"
-    value = var.postgres_password
-  }
-
-  set {
-    name  = "auth.enablePostgresUser"
-    value = true
-  }
-
-  set {
-    name  = "audit.log.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "audit.log.path"
-    value = "/var/log/postgresql/audit.log"
-  }
-
-  set {
-    name  = "persistence.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "persistence.existingClaim"
-    value = "postgres-storage"
-  }
+  set = [
+    {
+      name  = "auth.password"
+      value = var.postgres_password
+      }, {
+      name  = "auth.enablePostgresUser"
+      value = true
+      }, {
+      name  = "audit.log.enabled"
+      value = "true"
+      }, {
+      name  = "audit.log.path"
+      value = "/var/log/postgresql/audit.log"
+      }, {
+      name  = "persistence.enabled"
+      value = "true"
+      }, {
+      name  = "persistence.existingClaim"
+      value = "postgres-storage"
+    }
+  ]
 }
 
 # Kube Dashboard
@@ -135,26 +61,23 @@ resource "helm_release" "kube_dashboard" {
 # LinkDing
 #    nginx.ingress.kubernetes.io/auth-tls-secret: "linkding/thoughtcrimegames-ca-secret"
 #    nginx.ingress.kubernetes.io/auth-tls-verify-client: "off"
-resource "helm_release" "linkding" {
-  name             = "linkding"
-  repository       = "https://pascaliske.github.io/linkding-helm-chart"
-  chart            = "linkding"
-  namespace        = "linkding"
-  create_namespace = true
+# resource "helm_release" "linkding" {
+#   name             = "linkding"
+#   repository       = "https://pascaliske.github.io/linkding-helm-chart"
+#   chart            = "linkding"
+#   namespace        = "linkding"
+#   create_namespace = true
 
-  set {
-    name  = "ingress.enabled"
-    value = true
-  }
-
-  set {
-    name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-secret"
-    value = "linkding/thoughtcrimegames-ca-secret"
-  }
-
-  set {
-    name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-verify-client"
-    value = "off"
-  }
-
-}
+#   set = [
+#     {
+#       name  = "ingress.enabled"
+#       value = true
+#     }, {
+#       name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-secret"
+#       value = "linkding/thoughtcrimegames-ca-secret"
+#     }, {
+#       name  = "ingress.annotations.nginx.ingress.kubernetes.io/auth-tls-verify-client"
+#       value = "off"
+#     }
+#   ]
+# }

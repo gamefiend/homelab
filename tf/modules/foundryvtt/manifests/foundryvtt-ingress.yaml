@@ -6,7 +6,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/auth-tls-secret: "foundry-vtt/thoughtcrimegames-ca-secret"
     nginx.ingress.kubernetes.io/auth-tls-verify-client: "off"
-    kubernetes.digitalocean.com/load-balancer-id: ${foundryvtt.load_balancer_id}
 spec:
   tls:
   - hosts:
@@ -21,6 +20,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: app-foundry-vtt
+            name: foundry-vtt
             port:
               number: 80

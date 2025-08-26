@@ -9,3 +9,5 @@
 **/plans/**
 **/*.log
 **/tfplan*
+**/about/**
+.DS_Store
