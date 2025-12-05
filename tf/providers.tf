@@ -34,6 +34,10 @@ terraform {
       source  = "Twingate/twingate"
       version = "3.3.1"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "3.0.2"
+    }
   }
 }
 
@@ -46,7 +50,7 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = "~/.kube/hidden-leaf-kubeconfig.yaml"
   }
 }

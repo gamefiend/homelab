@@ -66,14 +66,13 @@ resources:
 ## @param tolerations Pod Tolerations
 ## @param affinity Pod Affinity
 podSecurityContext: {}
-  # fsGroup: 2000
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 421
+  # fsGroup: 200securityContext:
+
+securityContext: 
+  runAsUser: 421
+  runAsGroup: 421
+  fsGroup: 421
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
@@ -281,7 +280,7 @@ foundryvtt:
   upnp: false
 
   ## Version of Foundry VTT to install.
-  version: "11.315"
+  version: ""
 
   ## The world startup at system start.
   world: ""

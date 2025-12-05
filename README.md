@@ -4,8 +4,6 @@ Welcome to my homelab! I use this space to experiment with technologies but also
 This repository contains the infrastructure as code (IaC) for my personal homelab, hosted on DigitalOcean Kubernetes Service (DOKS).
 It also contains my notes and documentation for my projects and the services I run. 
 
-I use OpenTofu instead of Terraform because it's a drop-in replacement - same syntax, better license 😉
-
 ## Infrastructure Overview - as of 2025-06-04
 
 - **Kubernetes Cluster**: DOKS running version 1.32.2-do.0
@@ -22,7 +20,7 @@ I use OpenTofu instead of Terraform because it's a drop-in replacement - same sy
 - Features:
   - Persistent storage
   - SFTP access for file management (behind Twingate IP, not exposed to the public internet)
-  - SSL/TLS encryption via nginx ingress controller. Let's Encrypt certificate created with the DNSimple OpenTofu provider
+  - SSL/TLS encryption via nginx ingress controller. Let's Encrypt certificate created with the DNSimple Terraform provider
   - Nginx ingress with proxy protocol
 
 ### 2. Homepage
@@ -51,13 +49,13 @@ I use OpenTofu instead of Terraform because it's a drop-in replacement - same sy
 - SFTP access for file management in Foundry VTT
 
 ## Management
-- Infrastructure managed via OpenTofu
+- Infrastructure managed via Terraform
 - State stored in DigitalOcean Spaces
 - Helm charts for application deployment
-- Kubernetes manifests for custom resources, called via OpenTofu using `kubectl_manifest`
+- Kubernetes manifests for custom resources, called via Terraform using `kubectl_manifest`
 
 ## Secrets
-All sensitive credentials and configuration values are stored in `tofu.auto.tfvars` and never committed to the repository.
+All sensitive credentials and configuration values are stored in `terraform.auto.tfvars` and never committed to the repository.
 
 ---
 

@@ -76,7 +76,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: foundryvtt-storage
+            claimName: foundryvtt-pvc
         - name: sftp-config
         - name: foundry-pub-key
           secret:

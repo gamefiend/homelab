@@ -5,8 +5,8 @@ This document describes how to set up and use pre-commit hooks for this reposito
 ## Overview
 
 The pre-commit hooks in this repository ensure code quality and consistency by:
-- Formatting OpenTofu files using `tofu fmt`
-- Validating OpenTofu configurations using `tofu validate`
+- Formatting Terraform files using `terraform fmt`
+- Validating Terraform configurations using `terraform validate`
 
 ## Installation
 
@@ -28,7 +28,7 @@ The pre-commit hooks in this repository ensure code quality and consistency by:
 
 ### Automatic Execution
 
-The hooks will run automatically when you try to commit changes to any `.tf` or `.tofu` files. If the hooks fail, the commit will be blocked until you fix the issues.
+The hooks will run automatically when you try to commit changes to any `.tf` files. If the hooks fail, the commit will be blocked until you fix the issues.
 
 ### Manual Execution
 
@@ -46,20 +46,21 @@ pre-commit run
 If you want to run the formatting or validation without using pre-commit:
 
 ```bash
-# Format OpenTofu files
-tofu fmt
+# Format Terraform files
+terraform fmt
 
-# Validate OpenTofu configuration
-tofu validate
+# Validate Terraform configuration
+terraform validate
 ```
 
 ## Configuration
 
-The pre-commit configuration is stored in `.pre-commit-config.yaml` at the root of the repository. We use the official OpenTofu pre-commit hooks from [tofuutils/pre-commit-opentofu](https://github.com/tofuutils/pre-commit-opentofu).
+The pre-commit configuration is stored in `.pre-commit-config.yaml` at the root of the repository. We use the official Terraform pre-commit hooks from [antonbabenko/pre-commit-terraform](https://github.com/antonbabenko/pre-commit-terraform).
 
-- `tofu_fmt`: Formats OpenTofu files
+- `terraform_fmt`: Formats Terraform files
+- `terraform_validate`: Validates Terraform configurations
 
 The hooks are configured to:
-- Run on files with `.tf` or `.tofu` extensions
-- Use the system's PATH to find the `tofu` executable
-- Format and validate OpenTofu configurations 
+- Run on files with `.tf` extensions
+- Use the system's PATH to find the `terraform` executable
+- Format and validate Terraform configurations 

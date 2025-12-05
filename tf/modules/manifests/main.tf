@@ -6,9 +6,6 @@ locals {
   services_config   = file("${path.module}/homepage/services.yaml")
   widgets_config    = file("${path.module}/homepage/widgets.yaml")
   restart_timestamp = timestamp()
-  foundryvtt_secrets = templatefile("${path.module}/manifests/foundry-secrets.yaml", {
-    foundryvtt = var.foundryvtt
-  })
 }
 
 resource "local_file" "rendered_homepage_yaml" {
@@ -35,27 +32,6 @@ resource "null_resource" "restart_homepage" {
   depends_on = [kubectl_manifest.homepage]
 }
 
-resource "kubectl_manifest" "foundryvtt-storage" {
-  yaml_body = file("${path.module}/manifests/foundryvtt-storage.yaml")
-}
-
-resource "kubectl_manifest" "sftp" {
-  yaml_body = templatefile("${path.module}/manifests/sftp.yaml", {
-    sftp = var.sftp
-  })
-}
-
-resource "kubectl_manifest" "foundryvtt-ingress" {
-  yaml_body = templatefile("${path.module}/manifests/foundryvtt-ingress.yaml", {
-    foundryvtt = var.foundryvtt
-  })
-  apply_only = true
-}
-
-resource "kubectl_manifest" "foundryvtt-foundry-svc" {
-  yaml_body = file("${path.module}/manifests/foundryvtt-svc.yaml")
-  force_new = true
-}
 
 resource "kubectl_manifest" "postgres-storage" {
   yaml_body = file("${path.module}/manifests/postgres-storage.yaml")

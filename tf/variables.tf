@@ -38,6 +38,7 @@ variable "foundryvtt" {
     username         = string
     domain           = string
     load_balancer_id = string
+    version          = string
   })
   sensitive = true
 }
