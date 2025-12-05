@@ -2,20 +2,20 @@ locals {
   foundryvtt_secrets = templatefile("${path.module}/manifests/foundry-secrets.yaml", {
     foundryvtt = var.foundryvtt
   })
+
 }
 
 resource "helm_release" "foundry-vtt" {
-  name      = "foundry-vtt"
-  chart     = "${path.module}/charts"
-  namespace = "foundry-vtt"
-  version   = var.foundryvtt.version
-  # depends_on = [kubectl_manifest.foundryvtt-storage, kubectl_manifest.foundryvtt-foundry-svc, kubectl_manifest.foundryvtt-ingress]
-  depends_on = [kubectl_manifest.foundryvtt-storage, kubectl_manifest.foundryvtt-ingress]
+  name       = "foundry-vtt"
+  chart      = "${path.module}/charts"
+  namespace  = "foundry-vtt"
+  version    = var.foundryvtt.version
+  depends_on = [kubectl_manifest.foundryvtt-ingress]
 
   set = [
     {
       name  = "image.tag"
-      value = "12.331"
+      value = var.foundryvtt.version
       }, {
       name  = "foundryvtt.hostname"
       value = var.foundryvtt.domain
